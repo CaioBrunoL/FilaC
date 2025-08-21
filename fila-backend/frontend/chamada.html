@@ -1,18 +1,44 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Chamada</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
     <div class="container">
-        <h1>Chamada</h1>
-        <p>Usuário chamado:</p>
-        <div class="ticket-display" id="usuarioChamado">---</div>
-        <a href="lista.html">Voltar para Lista</a>
+        <h1>Paciente Chamado</h1>
+        <div id="infoPaciente" class="paciente-info"></div>
+        <a href="lista.html">🔙 Voltar para Fila</a>
     </div>
-    <script src="chamada.js"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const clienteChamado = JSON.parse(localStorage.getItem("clienteChamado"));
+        const display = document.getElementById("infoPaciente");
+
+        if (clienteChamado) {
+            // Força a conversão para número
+            const prioridade = parseInt(clienteChamado.prioridade);
+            let prioridadeTexto = "";
+
+            if (prioridade === 1) {
+                prioridadeTexto = "Prioridade";
+            } else if (prioridade === 2) {
+                prioridadeTexto = "Normal";
+            }
+
+            display.innerHTML = `
+                <p><strong>Nome:</strong> ${clienteChamado.nome}</p>
+                <p><strong>Serviço:</strong> ${clienteChamado.servico}</p>
+                <p><strong>Prioridade:</strong> ${prioridadeTexto}</p>
+            `;
+        } else {
+            display.textContent = "Nenhum paciente foi chamado ainda.";
+        }
+    });
+</script>
+
 </body>
 </html>

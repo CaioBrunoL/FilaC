@@ -1,39 +1,44 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Cadastro de Usuários</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
     <div class="container">
         <h1>Cadastro de Usuários</h1>
         <form id="cadastroForm">
-            <input type="text" id="nome" placeholder="Nome" required>
-        <div class="alinhamento">
-            <label for="servico">Serviços: </label>
-            <select name="servico">
-                <optgroup label="Escolha um Serviço">
-                    <option value="Cadastro único">Cadastro único</option>
-                    <option value="Passe Livre">Passe Livre</option>
-                    <option value="Sala dos Técnicos">Sala dos Técnicos</option>
-                </optgroup>  
-            </select>
-        </div><!--
-    --> <div class="alinhamento">
-            <label for="prioridade">Prioridade: </label>
-            <select name="prioridade">
-                <optgroup label="Prioridade?">
-                    <option value="Prioridade">Sim</option>
-                    <option value="nao">Não</option>
-                </optgroup>
-            </select>
+            <input type="text" id="nome" name="nome" placeholder="Nome" required />
+
+            <div class="alinhamento">
+                <label for="servico">Serviços:</label>
+                <select name="servico" id="servico" required>
+                    <optgroup label="Escolha um Serviço">
+                        <option value="Cadastro único">Cadastro único</option>
+                        <option value="Passe Livre">Passe Livre</option>
+                        <option value="Sala dos Técnicos">Sala dos Técnicos</option>
+                    </optgroup>
+                </select>
             </div>
+
+            <div class="alinhamento">
+                <label for="prioridade">Prioridade:</label>
+                <select name="prioridade" id="prioridade" required>
+                    <optgroup label="Prioridade?">
+                        <option value="1">Sim</option>
+                        <option value="2">Não</option>
+                    </optgroup>
+                </select>
+            </div>
+
             <button type="submit">Cadastrar</button>
         </form>
+
         <a href="lista.html">Ir para Lista de Espera</a>
     </div>
+
     <script src="cadastro.js"></script>
 </body>
 </html>

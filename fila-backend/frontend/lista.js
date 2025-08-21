@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", carregarFila);
 
 function carregarFila() {
-    fetch("http://127.0.0.1:8000/fila")  // Altere a URL se o backend estiver em outra porta
+    fetch("http://127.0.0.1:8000/pacientes")
         .then(response => {
             if (!response.ok) {
                 throw new Error("Erro ao buscar dados da fila");
@@ -10,12 +10,23 @@ function carregarFila() {
         })
         .then(dados => {
             const lista = document.getElementById("listaUsuarios");
-            lista.innerHTML = ""; // Limpa a lista antes de adicionar os itens
+            lista.innerHTML = "";
 
             dados.forEach(usuario => {
                 const item = document.createElement("li");
-                const tipoSenha = usuario.prioridade ? "P" : "A";
-                item.textContent = `${usuario.senha} - ${usuario.nome} (${usuario.servico})`;
+
+                const prioridade = parseInt(usuario.prioridade);
+                let prioridadeTexto = "";
+
+                if (prioridade === 1) {
+                    prioridadeTexto = "Prioridade";
+                } else if (prioridade === 2) {
+                    prioridadeTexto = "Normal";
+                } else {
+                    prioridadeTexto = "Desconhecida";
+                }
+
+                item.textContent = `${usuario.nome} - ${usuario.servico} (${prioridadeTexto})`;
                 lista.appendChild(item);
             });
         })
@@ -25,15 +36,13 @@ function carregarFila() {
 }
 
 function chamarUsuario() {
-    fetch("http://127.0.0.1:8000/fila/chamar", {
+    fetch("http://127.0.0.1:8000/pacientes/chamar", {
         method: "POST"
     })
     .then(response => response.json())
     .then(data => {
         if (data.cliente) {
-            // Salva no localStorage
             localStorage.setItem("clienteChamado", JSON.stringify(data.cliente));
-            // Vai para a página de chamada
             window.location.href = "chamada.html";
         } else {
             alert(data.mensagem || "Nenhum cliente na fila.");

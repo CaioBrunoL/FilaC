@@ -1,10 +1,23 @@
 document.addEventListener("DOMContentLoaded", () => {
     const clienteChamado = JSON.parse(localStorage.getItem("clienteChamado"));
-    const display = document.getElementById("usuarioChamado");
+    const display = document.getElementById("infoPaciente");
 
     if (clienteChamado) {
-        display.textContent = `${clienteChamado.senha} - ${clienteChamado.nome} (${clienteChamado.servico})`;
+        const prioridade = parseInt(clienteChamado.prioridade);
+        let prioridadeTexto = "";
+
+        if (prioridade === 1) {
+            prioridadeTexto = "Prioridade";
+        } else if (prioridade === 2) {
+            prioridadeTexto = "Normal";
+        }
+
+        display.innerHTML = `
+            <p><strong>Nome:</strong> ${clienteChamado.nome}</p>
+            <p><strong>Serviço:</strong> ${clienteChamado.servico}</p>
+            <p><strong>Prioridade:</strong> ${prioridadeTexto}</p>
+        `;
     } else {
-        display.textContent = "---";
+        display.textContent = "Nenhum paciente foi chamado ainda.";
     }
 });
